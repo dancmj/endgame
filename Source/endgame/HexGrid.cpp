@@ -16,6 +16,12 @@ void AHexGrid::BeginPlay()
 {
 	Super::BeginPlay();
 	
+
+}
+
+void AHexGrid::CreateHex()
+{
+	APawn* newHex = GetWorld()->SpawnActor<APawn>();
 }
 
 // Called every frame
