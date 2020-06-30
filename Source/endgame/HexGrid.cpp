@@ -16,13 +16,17 @@ void AHexGrid::BeginPlay()
 {
 	Super::BeginPlay();
 	
-
+	CreateHex();
 }
 
 void AHexGrid::CreateHex()
 {
-	APawn* newHex = GetWorld()->SpawnActor<APawn>();
-}
+	//APawn* newHex = GetWorld()->SpawnActor<APawn>();
+	tileData_1 = GetWorld()->SpawnActor<ATile>(ATile::StaticClass());
+	tileData_2 = GetWorld()->SpawnActor<ATile>(ATile::StaticClass());
+} 
+
+
 
 // Called every frame
 void AHexGrid::Tick(float DeltaTime)
@@ -30,4 +34,3 @@ void AHexGrid::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-

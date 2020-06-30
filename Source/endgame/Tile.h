@@ -4,25 +4,24 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Tile.h"
-#include "HexGrid.generated.h"
+#include "UObject/ConstructorHelpers.h"
+#include "Tile.generated.h"
 
 UCLASS()
-class AHexGrid : public AActor
+class ATile : public AActor
 {
 	GENERATED_BODY()
-
+	
 public:	
 	// Sets default values for this actor's properties
-	AHexGrid();
+	ATile();
 
-	ATile* tileData_1;
-	ATile* tileData_2;
+	UPROPERTY(VisibleAnywhere, Category = "HexMesh")
+	UStaticMeshComponent* sampleMesh;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	UFUNCTION(BlueprintCallable)
-	void CreateHex();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
