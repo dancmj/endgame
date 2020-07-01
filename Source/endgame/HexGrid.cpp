@@ -16,14 +16,16 @@ void AHexGrid::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	CreateHex();
+	CreateGrid();
 }
 
-void AHexGrid::CreateHex()
+void AHexGrid::CreateGrid()
 {
+	/// Next up, spawn the grid elements of the HexTable.
+
 	//APawn* newHex = GetWorld()->SpawnActor<APawn>();
-	tileData_1 = GetWorld()->SpawnActor<ATile>(ATile::StaticClass());
-	tileData_2 = GetWorld()->SpawnActor<ATile>(ATile::StaticClass());
+	//tileData_1 = GetWorld()->SpawnActor<ATile>(ATile::StaticClass());
+	//tileData_2 = GetWorld()->SpawnActor<ATile>(ATile::StaticClass());
 } 
 
 

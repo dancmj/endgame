@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "UObject/ConstructorHelpers.h"
+#include <endgame\HexLib.h>
 #include "Tile.generated.h"
 
 UCLASS()
@@ -18,6 +19,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "HexMesh")
 	UStaticMeshComponent* sampleMesh;
+	Hex* hex;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

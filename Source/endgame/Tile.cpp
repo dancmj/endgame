@@ -13,7 +13,7 @@ ATile::ATile()
 
 	if (MeshAsset.Succeeded()) {
 		sampleMesh->SetStaticMesh(MeshAsset.Object);
-		//sampleMesh->SetActorLocation(FVector(0.0f, 0.0f, 0.0f));
+		sampleMesh->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	}
 }
 
