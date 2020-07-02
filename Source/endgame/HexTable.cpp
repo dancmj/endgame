@@ -4,42 +4,44 @@
 #include "HexTable.h"
 #include "Containers/UnrealString.h"
 
-HexTable::HexTable()
+AHexTable::AHexTable()
 {
 }
 
-HexTable::~HexTable()
+AHexTable::~AHexTable()
 {
 }
 
-void HexTable::AddHex(Hex hex, HexData* data) {
-	map.Add(MakeKey(hex), data);
+
+FHexData* AHexTable::Get(Hex hex) {
+	return Get(hex.q, hex.r);
 }
 
-HexData* HexTable::GetHexData(Hex hex) {
-	return GetHexData(hex.q, hex.r);
-}
-
-HexData* HexTable::GetHexData(int q, int r) {
+FHexData* AHexTable::Get(int q, int r) {
 	if (Contains(q, r)) {
-		return map[MakeKey(q, r)];
+		return &map[MakeKey(q, r)];
 	}
 
 	return 0;
 }
 
-bool HexTable::Contains(Hex hex) {
-	return Contains(hex.q, hex.r);
+void AHexTable::AddHex(FHexData data) {
+	map.Add(MakeKey(&data.hex), data);
+	UE_LOG(LogTemp, Warning, TEXT(" ADDING HEX (q%d,r%d,s%d)\n"), data.hex.q, data.hex.r, data.hex.s);
 }
 
-bool HexTable::Contains(int q, int r) {
+bool AHexTable::Contains(Hex* hex) {
+	return Contains(hex->q, hex->r);
+}
+
+bool AHexTable::Contains(int q, int r) {
 	return map.Contains(MakeKey(q, r));
 }
 
-FString HexTable::MakeKey(Hex hex) {
-	return MakeKey(hex.q, hex.r);
+FString AHexTable::MakeKey(Hex* hex) {
+	return MakeKey(hex->q, hex->r);
 }
 
-FString HexTable::MakeKey(int q, int r) {
-	return FString::FromInt(q) + FString::FromInt(r);
+FString AHexTable::MakeKey(int q, int r) {
+	return FString::FromInt(q) +"_"+ FString::FromInt(r);
 }

@@ -8,24 +8,32 @@
 #include <endgame\HexTable.h>
 #include "HexGrid.generated.h"
 
-UCLASS()
+    UENUM()
+enum FShape {
+	Hexagon,
+	Parallelogram,
+	Triangle,
+	Rectangle,
+};
+
+    UCLASS()
 class AHexGrid : public AActor
 {
-	GENERATED_BODY()
-
-	HexTable hexTable;
-
+	    GENERATED_BODY()
+	AHexTable hexTable;
 public:	
 	// Sets default values for this actor's properties
 	AHexGrid();
+	~AHexGrid();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	UFUNCTION(BlueprintCallable)
-	void CreateGrid();
+	/////////////  e_game   //////////////////////
+	    UFUNCTION(BlueprintCallable)
+	void CreateGrid(FShape shape, int val);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	//////////////////////////////////////////// Store Hex(q, r) in hash_table(hash(q,r)).
+    ///TODO Store everything inside a hash table easily obtainable.
 };
