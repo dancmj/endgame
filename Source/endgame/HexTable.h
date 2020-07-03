@@ -22,6 +22,7 @@ class AHexTable
 {
 public:
 	TMap<FString, FHexData> map;
+
 	AHexTable();
 	~AHexTable();
 

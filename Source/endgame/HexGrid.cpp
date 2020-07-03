@@ -20,7 +20,7 @@ void AHexGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
-	CreateGrid(FShape::Hexagon, 100);
+	CreateGrid(FShape::Hexagon, 7);
 }
 
 
@@ -29,14 +29,21 @@ void AHexGrid::CreateGrid(FShape shape, int val)
 {
     int map_radius = val;
 
+
     switch(shape) {
         case(FShape::Hexagon):
 
         for(int q = -map_radius; q <= map_radius; q++) {
             int r1 = FMath::Max3(-map_radius, -q -map_radius, -map_radius);
             int r2 = FMath::Min3(map_radius, -q + map_radius, map_radius);
-            for(int r = r1; r<=r2; r++) {
-                hexTable.AddHex(FHexData(Hex(q, r, -q-r)));
+            for (int r = r1; r <= r2; r++) {
+                hexTable.AddHex(FHexData(Hex(q, r, -q - r)));
+
+                FVector Location(q * separation, r * separation, 0.0f);
+                FRotator Rotation(0.0f, 0.0f, 0.0f);
+                FActorSpawnParameters SpawnInfo;
+
+                GetWorld()->SpawnActor<ATile>(Location, Rotation, SpawnInfo);
             }
         }
 

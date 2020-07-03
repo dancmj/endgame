@@ -20,6 +20,9 @@ enum FShape {
 class AHexGrid : public AActor
 {
 	    GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, meta = (ClampMin = "1",  UIMin = "1"))
+	int separation;
 	AHexTable hexTable;
 public:	
 	// Sets default values for this actor's properties

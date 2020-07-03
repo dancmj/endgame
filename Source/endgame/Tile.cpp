@@ -8,7 +8,7 @@ ATile::ATile()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("StaticMesh'/Game/Models/M_HexSample.M_HexSample'"));
+	ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("StaticMesh'/Game/Models/M_HexProto.M_HexProto'"));
 	sampleMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SOME_NAME"));
 
 	if (MeshAsset.Succeeded()) {
