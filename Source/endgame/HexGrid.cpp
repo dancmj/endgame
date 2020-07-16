@@ -9,6 +9,8 @@ AHexGrid::AHexGrid()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	static ConstructorHelpers::FObjectFinder<UClass> TileClassFinder(TEXT("Blueprint'/Game/Blueprints/BP_Tile.BP_Tile'"));
+	TileClass= TileClassFinder.Object;
 }
 
 AHexGrid::~AHexGrid() {
@@ -20,32 +22,38 @@ void AHexGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
-	CreateGrid(FShape::Hexagon, 7);
+	CreateGrid(FShape::Hexagon, map_radius);
 }
 
 
 
 void AHexGrid::CreateGrid(FShape shape, int val)
 {
-    int map_radius = val;
+	map_radius = val;
 
 
-    switch(shape) {
-        case(FShape::Hexagon):
+	switch (shape) {
+	case(FShape::Hexagon):
 
-        for(int q = -map_radius; q <= map_radius; q++) {
-            int r1 = FMath::Max3(-map_radius, -q -map_radius, -map_radius);
-            int r2 = FMath::Min3(map_radius, -q + map_radius, map_radius);
-            for (int r = r1; r <= r2; r++) {
-                hexTable.AddHex(FHexData(Hex(q, r, -q - r)));
+		for (int q = -map_radius; q <= map_radius; q++) {
+			int r1 = FMath::Max3(-map_radius, -q - map_radius, -map_radius);
+			int r2 = FMath::Min3(map_radius, -q + map_radius, map_radius);
+			for (int r = r1; r <= r2; r++) {
+				hexTable.AddHex(FHexData(Hex(q, r, -q - r)));
 
-                FVector Location(q * separation, r * separation, 0.0f);
-                FRotator Rotation(0.0f, 0.0f, 0.0f);
-                FActorSpawnParameters SpawnInfo;
+				//UE_LOG(LogTemp, Warning, TEXT(" Separation Vector (q%d,r%d,s%d)\n"), separation_vector.X, separation_vector.Y, separation_vector.Z);
 
-                GetWorld()->SpawnActor<ATile>(Location, Rotation, SpawnInfo);
-            }
-        }
+				FVector Location(q * separation_vector.X + (separation_vector.X/2 * r), r * (separation_vector.Y), -100.0f);
+				FRotator Rotation(0.0f, 0.0f, 0.0f);
+				FActorSpawnParameters SpawnInfo;
+
+				ATile* tile = GetWorld()->SpawnActorDeferred<ATile>(TileClass, FTransform(Rotation, Location));
+				if (tile != nullptr) {
+					tile->Initialize(q, r);
+					tile->FinishSpawning(FTransform(Rotation, Location));
+				}
+			}
+		}
 
 		break;
 	case(FShape::Parallelogram):
@@ -56,15 +64,14 @@ void AHexGrid::CreateGrid(FShape shape, int val)
 		break;
 	}
 
-    for (auto& hex : hexTable.map)
-    {
+	for (auto& hex : hexTable.map) {
 
-        UE_LOG(LogTemp, Warning, TEXT("(\"%s\", q:%d r:%d s:%d)\n"),
-               *hex.Key,
-               hex.Value.hex.q,
-               hex.Value.hex.r,
-               hex.Value.hex.s);
-    }
+		UE_LOG(LogTemp, Warning, TEXT("(\"%s\", q:%d r:%d s:%d)\n"),
+			*hex.Key,
+			hex.Value.hex.q,
+			hex.Value.hex.r,
+			hex.Value.hex.s);
+	}
 
 	//APawn* newHex = GetWorld()->SpawnActor<APawn>();
 	//tileData_1 = GetWorld()->SpawnActor<ATile>(ATile::StaticClass());
@@ -72,9 +79,18 @@ void AHexGrid::CreateGrid(FShape shape, int val)
 }
 
 
-
 // Called every frame
 void AHexGrid::Tick(float DeltaTime)
 {
+
 	Super::Tick(DeltaTime);
 }
+
+
+//bool AHexGrid::PlaceTile(ATile* tile) {
+//
+//}
+
+//ATile AHexGrid::GetTile(int q, int r) {
+//	//return tile_map[q][r]
+//}

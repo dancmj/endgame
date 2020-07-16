@@ -6,6 +6,7 @@
 #include "Containers/Map.h"
 #include "Containers/UnrealString.h"
 #include <endgame\HexLib.h>
+#include <endgame\Tile.h>
 //#include "HexTable.generated.h"
 
 
@@ -22,6 +23,7 @@ class AHexTable
 {
 public:
 	TMap<FString, FHexData> map;
+	TMap<FString, ATile> tile_map;
 
 	AHexTable();
 	~AHexTable();

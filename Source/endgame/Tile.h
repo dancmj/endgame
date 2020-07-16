@@ -16,10 +16,16 @@ class ATile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ATile();
+	void Initialize(int q, int r);
 
 	UPROPERTY(VisibleAnywhere, Category = "HexMesh")
 	UStaticMeshComponent* sampleMesh;
 	Hex* hex;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int Q;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int R;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
