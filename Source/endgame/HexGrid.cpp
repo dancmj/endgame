@@ -52,7 +52,7 @@ void AHexGrid::CreateGrid(FShape shape, int val)
 					tile->Initialize(q, r);
 					tile->FinishSpawning(FTransform(Rotation, Location));
 				}
-			}
+			} 
 		}
 
 		break;
