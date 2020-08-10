@@ -19,12 +19,16 @@ enum FShape {
     UCLASS()
 class AHexGrid : public AActor
 {
+
 	GENERATED_BODY()
 		UPROPERTY(EditAnywhere, meta = (ClampMin = "1", UIMin = "1"))
 	int map_radius = 0;
 		UPROPERTY(EditAnywhere, meta = (ClampMin = "1", UIMin = "1"))
-	FVector separation_vector;
+	 FVector separation_vector;
 	AHexTable hexTable;
+
+	UPROPERTY(EditAnywhere, meta = (ClampMin = "1", UIMin = "1"))
+		int hex_radius = 0;
 public:	
 	// Sets default values for this actor's properties
 	AHexGrid();
@@ -33,9 +37,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Classes)
 	TSubclassOf<class ATile> TileClass;
 
+	//UFUNCTION(BlueprintCallable, CallInEditor)
+	//void DrawHex();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	//////
+
 	/////////////  e_game   //////////////////////
 	    UFUNCTION(BlueprintCallable)
 	void CreateGrid(FShape shape, int val);

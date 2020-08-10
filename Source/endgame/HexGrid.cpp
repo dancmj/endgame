@@ -22,11 +22,15 @@ void AHexGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
-	CreateGrid(FShape::Hexagon, map_radius);
+	//CreateGrid(FShape::Hexagon, map_radius);
 }
 
+//void AHexGrid::DrawHex() {
+//	UProceduralMeshComponent meshComponent = UProceduralMeshComponent();
+//}
 
 
+// This is the old method for creating a grid.
 void AHexGrid::CreateGrid(FShape shape, int val)
 {
 	map_radius = val;
