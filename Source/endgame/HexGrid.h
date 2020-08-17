@@ -21,22 +21,21 @@ class AHexGrid : public AActor
 {
 
 	GENERATED_BODY()
-		UPROPERTY(EditAnywhere, meta = (ClampMin = "1", UIMin = "1"))
-	int map_radius = 0;
-		UPROPERTY(EditAnywhere, meta = (ClampMin = "1", UIMin = "1"))
-	 FVector separation_vector;
-	AHexTable hexTable;
 
-	UPROPERTY(EditAnywhere, meta = (ClampMin = "1", UIMin = "1"))
-		int hex_radius = 0;
+	
 public:	
 	// Sets default values for this actor's properties
 	AHexGrid();
 	~AHexGrid();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Classes)
-	TSubclassOf<class ATile> TileClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = HexGridSettings)
+	const TSubclassOf<class ATile> TileClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = HexGridSettings, meta = (ClampMin = "1", UIMin = "1"))
+		int hex_radius = 100;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = HexGridSettings, meta = (ClampMin = "1", UIMin = "1"))
+		int map_radius = 20;
 	//UFUNCTION(BlueprintCallable, CallInEditor)
 	//void DrawHex();
 protected:
@@ -46,8 +45,10 @@ protected:
 
 	/////////////  e_game   //////////////////////
 	    UFUNCTION(BlueprintCallable)
-	void CreateGrid(FShape shape, int val);
+	void CreateGrid(FShape shape, int radius);
 
+		UPROPERTY(BlueprintReadOnly)
+	UHexTable* hexTable;
 	//bool PlaceTile(ATile* tile);
 	//ATile GetTile(int q, int r);
 public:	

@@ -7,8 +7,11 @@
 #include "UObject/ConstructorHelpers.h"
 #include <endgame\HexLib.h>
 #include "Tile.generated.h"
+#ifndef TILE_SETTINGS
+#define TILE_SETTINGS "Tile Settings"
+#endif
 
-UCLASS()
+UCLASS(abstract)
 class ATile : public AActor
 {
 	GENERATED_BODY()
@@ -16,16 +19,18 @@ class ATile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ATile();
+	UFUNCTION(BlueprintCallable, Category = TILE_SETTINGS)
 	void Initialize(int q, int r);
 
-	UPROPERTY(VisibleAnywhere, Category = "HexMesh")
-	UStaticMeshComponent* sampleMesh;
 	Hex* hex;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TILE_SETTINGS)
 	int Q;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = TILE_SETTINGS)
 	int R;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = TILE_SETTINGS)
+	FString GetKey();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

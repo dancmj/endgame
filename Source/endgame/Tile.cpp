@@ -4,13 +4,6 @@
 ATile::ATile() {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("StaticMesh'/Game/Models/M_HexProto.M_HexProto'"));
-	sampleMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SOME_NAME"));
-
-	if (MeshAsset.Succeeded()) {
-		sampleMesh->SetStaticMesh(MeshAsset.Object);
-	}
 }
 
 void ATile::Initialize(int q, int r) {
@@ -30,5 +23,9 @@ void ATile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+FString ATile::GetKey() {
+	return FString::FromInt(Q) +"_"+ FString::FromInt(R);
 }
 
